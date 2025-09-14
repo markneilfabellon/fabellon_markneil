@@ -205,7 +205,7 @@ class Database {
         $this->dbprefix = $database_config['dbprefix'];
         $driver = strtolower($database_config['driver']);
         $charset = $database_config['charset'];
-        $hostname = $database_config['hostname'];
+        $host = $database_config['hostname'];
         $port = $database_config['port'];
         $dbname_value = $database_config['database'];
         $username = $database_config['username'];
