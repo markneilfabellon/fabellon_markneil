@@ -25,7 +25,7 @@
 <body class="min-h-screen flex items-center justify-center">
   <div class="glass p-8 rounded-2xl shadow-2xl w-full max-w-md">
     <h1 class="text-3xl font-extrabold mb-6 text-center text-cyan-400">+ Add Student</h1>
-    <form action="/students/store" method="POST" class="space-y-4">
+    <form action="/students/create" method="POST" class="space-y-4">
       <div>
         <label class="block mb-1 text-sm text-gray-300">Last Name</label>
         <input type="text" name="last_name" class="w-full rounded-md px-3 py-2 focus:ring-2 focus:ring-cyan-500 outline-none" required>
