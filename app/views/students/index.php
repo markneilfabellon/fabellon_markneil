@@ -35,7 +35,7 @@
     </h1>
 
     <div class="flex justify-between mb-6">
-      <a href="/students/store" 
+      <a href="/students/create" 
          class="bg-cyan-500 hover:bg-cyan-600 text-white px-5 py-2 rounded-full shadow-lg transition transform hover:scale-105">
          + Add Student
       </a>
