@@ -45,9 +45,7 @@ defined('PREVENT_DIRECT_ACCESS') OR exit('No direct script access allowed');
 $router->get('/', 'Students::index');
 $router->get('/students/index', 'Students::index');
 $router->get('/students/create', 'Students::create');
-
-$router->post('/students/store', 'Students::store');   // ✅ should be POST
-
+$router->post('/students/store', 'Students::store');  
 $router->post('/students/inline_update/{id}', 'Students::inline_update');
 $router->get('/students/inline_delete/{id}', 'Students::inline_delete');
 $router->get('/students/delete_all', 'Students::delete_all');

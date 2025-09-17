@@ -46,19 +46,6 @@
       </a>
     </div>
 
-    <!-- 🔍 Search Form -->
-    <form method="GET" action="/students/index" class="mb-6 flex space-x-2">
-      <input type="text" name="search" value="<?= htmlspecialchars($search ?? '') ?>"
-             placeholder="Search students..."
-             class="px-4 py-2 rounded-md bg-slate-700 text-white focus:ring-2 focus:ring-cyan-500 outline-none w-64" />
-      <button type="submit" class="bg-cyan-500 hover:bg-cyan-600 px-4 py-2 rounded-md text-white">
-        Search
-      </button>
-      <?php if (!empty($search)): ?>
-        <a href="/students/index" class="bg-gray-600 hover:bg-gray-700 px-4 py-2 rounded-md text-white">Clear</a>
-      <?php endif; ?>
-    </form>
-
     <div class="overflow-hidden rounded-2xl glass shadow-xl">
       <table class="w-full border-collapse text-sm">
         <thead class="bg-slate-800/50">
@@ -108,32 +95,6 @@
           <?php endif; ?>
         </tbody>
       </table>
-    </div>
-
-    <!-- 📄 Pagination -->
-    <div class="flex items-center justify-between mt-6">
-      <div class="text-sm text-gray-400">
-        Showing <?= ($offset + 1) ?> to <?= min($offset + count($students), $total) ?> of <?= $total ?> students
-      </div>
-
-      <div class="flex space-x-2">
-        <?php if ($page > 1): ?>
-          <a href="/students/index?page=<?= $page-1 ?>&search=<?= urlencode($search) ?>"
-             class="px-3 py-1 bg-slate-700 rounded hover:bg-slate-600">Prev</a>
-        <?php endif; ?>
-
-        <?php for ($p = 1; $p <= $total_pages; $p++): ?>
-          <a href="/students/index?page=<?= $p ?>&search=<?= urlencode($search) ?>"
-             class="px-3 py-1 rounded <?= ($p == $page) ? 'bg-cyan-500 text-white' : 'bg-slate-700 text-gray-200 hover:bg-slate-600' ?>">
-            <?= $p ?>
-          </a>
-        <?php endfor; ?>
-
-        <?php if ($page < $total_pages): ?>
-          <a href="/students/index?page=<?= $page+1 ?>&search=<?= urlencode($search) ?>"
-             class="px-3 py-1 bg-slate-700 rounded hover:bg-slate-600">Next</a>
-        <?php endif; ?>
-      </div>
     </div>
   </div>
 </body>
