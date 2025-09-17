@@ -28,4 +28,25 @@ class StudentModel extends Model {
     public function truncate() {
         return $this->db->raw("TRUNCATE TABLE {$this->table}");
     }
+
+    public function count_all($search = null) {
+        $builder = $this->db->table($this->table);
+        if (!empty($search)) {
+            $builder->like('last_name', $search)
+                    ->or_like('first_name', $search)
+                    ->or_like('email', $search);
+        }
+        return $builder->count();
+    }
+
+    public function get_paginated($limit, $offset, $search = null) {
+        $builder = $this->db->table($this->table);
+        if (!empty($search)) {
+            $builder->like('last_name', $search)
+                    ->or_like('first_name', $search)
+                    ->or_like('email', $search);
+        }
+        return $builder->limit($limit, $offset)->get_all();
+    }
+
 }
