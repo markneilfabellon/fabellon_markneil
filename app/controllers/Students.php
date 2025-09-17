@@ -14,7 +14,7 @@ class Students extends Controller {
     }
 
     public function create() {
-        $this->call->view('students/create');
+        $this->call->view('students/store');
     }
 
     public function store() {
