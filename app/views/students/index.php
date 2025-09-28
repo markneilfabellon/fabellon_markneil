@@ -34,11 +34,26 @@
        Student Dashboard
     </h1>
 
+    <!-- Top Controls -->
     <div class="flex justify-between mb-6">
+      <!-- Add Student -->
       <a href="/students/create" 
          class="bg-cyan-500 hover:bg-cyan-600 text-white px-5 py-2 rounded-full shadow-lg transition transform hover:scale-105">
          + Add Student
       </a>
+
+      <!-- Search -->
+      <form action="/students/index" method="GET" class="flex space-x-2">
+        <input type="text" name="search" value="<?= htmlspecialchars($search ?? '') ?>"
+               placeholder="Search name..." 
+               class="rounded-full px-4 py-2 bg-slate-700/50 text-white focus:ring-2 focus:ring-cyan-500 outline-none">
+        <button type="submit" 
+                class="bg-cyan-500 hover:bg-cyan-600 text-white px-4 py-2 rounded-full shadow-lg">
+          Search
+        </button>
+      </form>
+
+      <!-- Delete All -->
       <a href="/students/delete_all" 
          onclick="return confirm('⚠️ Delete ALL students?')" 
          class="bg-red-600 hover:bg-red-700 text-white px-5 py-2 rounded-full shadow-lg transition transform hover:scale-105">
@@ -46,6 +61,7 @@
       </a>
     </div>
 
+    <!-- Student Table -->
     <div class="overflow-hidden rounded-2xl glass shadow-xl">
       <table class="w-full border-collapse text-sm">
         <thead class="bg-slate-800/50">
@@ -96,6 +112,27 @@
         </tbody>
       </table>
     </div>
+
+    <!-- Pagination -->
+    <div class="flex justify-center items-center mt-6 space-x-2">
+      <?php if($page > 1): ?>
+        <a href="/students/index?page=<?= $page-1 ?>&search=<?= urlencode($search ?? '') ?>"
+           class="px-3 py-1 bg-slate-700 hover:bg-cyan-500 rounded-md">Prev</a>
+      <?php endif; ?>
+
+      <?php for($i=1; $i<=$total_pages; $i++): ?>
+        <a href="/students/index?page=<?= $i ?>&search=<?= urlencode($search ?? '') ?>"
+           class="px-3 py-1 rounded-md <?= $i==$page ? 'bg-cyan-500 text-white' : 'bg-slate-700 hover:bg-cyan-500' ?>">
+           <?= $i ?>
+        </a>
+      <?php endfor; ?>
+
+      <?php if($page < $total_pages): ?>
+        <a href="/students/index?page=<?= $page+1 ?>&search=<?= urlencode($search ?? '') ?>"
+           class="px-3 py-1 bg-slate-700 hover:bg-cyan-500 rounded-md">Next</a>
+      <?php endif; ?>
+    </div>
+
   </div>
 </body>
 </html>

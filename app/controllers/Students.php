@@ -9,8 +9,22 @@ class Students extends Controller {
     }
 
     public function index() {
-        $students = $this->StudentModel->get_all();
-        $this->call->view('students/index', ['students' => $students]);
+        $per_page = 5;
+        $page = isset($_GET['page']) ? (int)$_GET['page'] : 1;
+        $search = isset($_GET['search']) ? $_GET['search'] : null;
+
+        $offset = ($page - 1) * $per_page;
+
+        $students = $this->StudentModel->get_students($per_page, $offset, $search);
+        $total_students = $this->StudentModel->count_students($search);
+        $total_pages = ceil($total_students / $per_page);
+
+        $this->call->view('students/index', [
+            'students' => $students,
+            'page' => $page,
+            'total_pages' => $total_pages,
+            'search' => $search
+        ]);
     }
 
     public function create() {
@@ -24,7 +38,9 @@ class Students extends Controller {
             'email' => $this->io->post('email')
         ];
         $this->StudentModel->insert_data($data);
-        echo "<script>alert('Added successfully!'); window.location='/students/index';</script>";
+
+        // Redirect para visible agad
+        redirect('/students/index');
     }
 
     public function inline_update($id) {
@@ -34,16 +50,16 @@ class Students extends Controller {
             'email' => $_POST['email']
         ];
         $this->StudentModel->update_data($id, $data);
-        echo "<script>alert('Updated successfully!'); window.location='/students/index';</script>";
+        redirect('/students/index');
     }
 
     public function inline_delete($id) {
         $this->StudentModel->delete_data($id);
-        echo "<script>alert('Deleted successfully!'); window.location='/students/index';</script>";
+        redirect('/students/index');
     }
 
     public function delete_all() {
         $this->StudentModel->truncate();
-        echo "<script>alert('All records deleted!'); window.location='/students/index';</script>";
+        redirect('/students/index');
     }
 }

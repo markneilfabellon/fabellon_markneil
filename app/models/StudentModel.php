@@ -8,9 +8,33 @@ class StudentModel extends Model {
     public function __construct() {
         parent::__construct();
     }
+    
+    // Get students with pagination + search
+    public function get_students($limit, $offset, $search = null) {
+        $builder = $this->db->table($this->table);
 
-    public function get_all() {
-        return $this->db->table($this->table)->get_all();
+        if ($search) {
+            $builder->group_start()
+                    ->like('first_name', $search)
+                    ->or_like('last_name', $search)
+                    ->group_end();
+        }
+
+        return $builder->limit($limit, $offset)->get_all();
+    }
+
+    // Count for pagination
+    public function count_students($search = null) {
+        $builder = $this->db->table($this->table);
+
+        if ($search) {
+            $builder->group_start()
+                    ->like('first_name', $search)
+                    ->or_like('last_name', $search)
+                    ->group_end();
+        }
+
+        return $builder->count();
     }
 
     public function insert_data($data) {
@@ -28,6 +52,4 @@ class StudentModel extends Model {
     public function truncate() {
         return $this->db->raw("TRUNCATE TABLE {$this->table}");
     }
-
-    
 }
