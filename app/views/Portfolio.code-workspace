@@ -1,0 +1,43 @@
+{
+	"folders": [
+		{
+			"path": "../../../Users/bened/Desktop/Portfolio"
+		},
+		{
+			"path": "../../../wamp64/www/Madrigal_Benedict_Act1"
+		},
+		{
+			"path": "../../../wamp64/www/Madrigal_Benedict_Act2"
+		},
+		{
+			"path": "D:/PROGRAMMING/INTEG"
+		},
+		{
+			"path": "../../../wamp64/www/INTEG"
+		},
+		{
+			"path": "../../../wamp64/www/C.R.U.D"
+		},
+		{
+			"path": "../../../wamp64/www/FINALPROJECT"
+		},
+		{
+			"path": "../../../PROGRAMMING"
+		},
+		{
+			"path": "../../../punbb-1.4.6"
+		},
+		{
+			"path": "../../../xampp/htdocs/LavaLust"
+		},
+		{
+			"path": "../../../CRUD_GUI"
+		},
+		{
+			"path": "../.."
+		}
+	],
+	"settings": {
+		"liveServer.settings.multiRootWorkspaceName": "PROGRAMMING"
+	}
+}

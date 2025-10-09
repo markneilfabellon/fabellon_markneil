@@ -1,0 +1,110 @@
+<?php
+// views/create.php
+// session_start(); // Uncomment if sessions are not started elsewhere
+
+$flash = $_SESSION['flash'] ?? null;
+if (isset($_SESSION['flash'])) { unset($_SESSION['flash']); }
+
+function old($key) {
+    return htmlspecialchars($_POST[$key] ?? '', ENT_QUOTES);
+}
+?>
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Create — MyApp</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="min-h-screen bg-gradient-to-br from-slate-900 via-indigo-900 to-sky-900 text-gray-100">
+  <div class="max-w-5xl mx-auto px-4 py-10">
+    <header class="flex items-center justify-between mb-8">
+      <div class="flex items-center gap-3">
+        <a href="/index.html" class="text-2xl font-bold">MyApp</a>
+        <span class="text-sm text-slate-300">/ Create</span>
+      </div>
+      <nav class="flex items-center gap-3">
+        <a href="/auth/dashboard.php" class="text-sm text-slate-300 hover:text-white">Dashboard</a>
+        <a href="/auth/logout.php" class="text-sm px-3 py-2 rounded bg-rose-600 hover:bg-rose-700 text-white">Logout</a>
+      </nav>
+    </header>
+
+    <main class="grid grid-cols-1 md:grid-cols-3 gap-6">
+      <section class="md:col-span-2 bg-white/5 p-6 rounded-2xl border border-white/10 shadow">
+        <div class="flex items-center justify-between mb-4">
+          <h1 class="text-xl font-semibold">Create New Record</h1>
+          <a href="/index.html" class="text-sm text-slate-300 hover:underline">Back to list</a>
+        </div>
+
+        <?php if (!empty($flash)): ?>
+          <div class="mb-4 p-3 rounded bg-emerald-800/40 text-emerald-200"><?php echo htmlspecialchars($flash); ?></div>
+        <?php endif; ?>
+
+        <?php if (!empty($errors) && is_array($errors)): ?>
+          <div class="mb-4 p-3 rounded bg-red-800/30 text-red-200">
+            <ul class="list-disc list-inside">
+              <?php foreach ($errors as $err): ?>
+                <li><?php echo htmlspecialchars(is_array($err) ? implode(' ', $err) : $err); ?></li>
+              <?php endforeach; ?>
+            </ul>
+          </div>
+        <?php endif; ?>
+
+        <!-- Example form: adjust fields/names to match your backend -->
+        <form action="/create.php" method="post" class="space-y-4">
+          <div>
+            <label for="title" class="block text-sm text-slate-300 mb-1">Title</label>
+            <input id="title" name="title" required
+                   class="w-full px-4 py-2 rounded-lg bg-white/5 border border-white/10 text-white placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-indigo-500"
+                   value="<?php echo old('title'); ?>" />
+          </div>
+
+          <div>
+            <label for="description" class="block text-sm text-slate-300 mb-1">Description</label>
+            <textarea id="description" name="description" rows="6" required
+                      class="w-full px-4 py-3 rounded-lg bg-white/5 border border-white/10 text-white placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-indigo-500"><?php echo old('description'); ?></textarea>
+          </div>
+
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+            <div>
+              <label for="category" class="block text-sm text-slate-300 mb-1">Category</label>
+              <input id="category" name="category"
+                     class="w-full px-4 py-2 rounded-lg bg-white/5 border border-white/10 text-white placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-indigo-500"
+                     value="<?php echo old('category'); ?>" />
+            </div>
+            <div>
+              <label for="date" class="block text-sm text-slate-300 mb-1">Date</label>
+              <input id="date" name="date" type="date"
+                     class="w-full px-4 py-2 rounded-lg bg-white/5 border border-white/10 text-white focus:outline-none focus:ring-2 focus:ring-indigo-500"
+                     value="<?php echo old('date'); ?>" />
+            </div>
+          </div>
+
+          <div class="flex items-center gap-3">
+            <button type="submit" class="px-5 py-2 rounded-lg bg-indigo-500 hover:bg-indigo-600 text-white font-medium shadow">Create</button>
+            <a href="/index.html" class="px-4 py-2 rounded-lg border border-white/10 text-slate-300 hover:bg-white/5">Cancel</a>
+          </div>
+        </form>
+      </section>
+
+      <aside class="bg-white/6 p-6 rounded-2xl border border-white/10 shadow">
+        <h3 class="text-md font-semibold mb-2">Tips</h3>
+        <p class="text-slate-300 text-sm">Provide a clear title and detailed description. Fields marked required will be validated server-side.</p>
+
+        <div class="mt-4">
+          <h4 class="text-sm font-medium text-slate-200">Quick actions</h4>
+          <ul class="mt-2 space-y-2 text-slate-300">
+            <li><a href="/create.php" class="hover:underline">Create another</a></li>
+            <li><a href="/index.html" class="hover:underline">View all records</a></li>
+          </ul>
+        </div>
+      </aside>
+    </main>
+
+    <footer class="mt-8 text-center text-slate-400 text-sm">
+      &copy; <?php echo date('Y'); ?> MyApp
+    </footer>
+  </div>
+</body>
+</html>
