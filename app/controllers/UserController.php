@@ -5,7 +5,7 @@ class UserController extends Controller {
     public function __construct()
     {
         parent::__construct();
-        $this->call->database();
+        // $this->call->database();
         $this->call->model('UserModel');
         $this->call->library('Session');
     }
